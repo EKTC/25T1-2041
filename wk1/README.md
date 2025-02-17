@@ -160,19 +160,6 @@ Q: Why does it take a while to run `grep -E hello`
 
 <details>
 <summary><h3>
-Q: Why does it take a while to run `grep -E hello`
-</h3></summary>
-
-###
-
-- When running grep, you can specify some sort of input to filter
-- Otherwise it waits for stdin to apply the filter
-- On a successful match it prints out the matched expression in terminal
-
-</details>
-
-<details>
-<summary><h3>
 Q: Why won't this command work `grep -E int main program.c`
 </h3></summary>
 
@@ -182,5 +169,50 @@ Q: Why won't this command work `grep -E int main program.c`
 - If `main` does not exist it would display an error that the file does not exist
 - The shell treats each space as an argument and only the first one after the `-E` is what you want to filter
 - To fix we would do `grep -E 'int main' program.c`
+
+</details>
+
+<details>
+<summary><h3>
+S: Try out the command `man 1 grep`
+</h3></summary>
+
+###
+
+- Input the above command to get used to using the man pages
+- Man pages provide useful information about the command such as the options, this may be more important if the exam is closed book as in previous terms
+- The two options that come to mind are `-v` which means the non-matching lines are printed instead
+- The other option is `-i` which ignores upper/lower case
+
+</details>
+
+<details>
+<summary><h3>
+Q: What does the command `grep -Ev .` print and why? Can you do the same without the -v option
+</h3></summary>
+
+###
+
+- The pattern `.` matches any character
+- However the option `-v` means grep will print out the lines that do not match the pattern
+- Hence it will print out all the empty lines
+- To do so without the `-v` option we can do something like `grep -E '^$'`
+
+</details>
+
+<details>
+<summary><h3>
+Q: This regular expression `[0-9]*.[0-9]*` is intended to match floating point numbers such as '42.5'
+Is it appropriate?
+</h3></summary>
+
+###
+
+- The expression above will match a zero or more digits, followed by any character and then zero or more digits
+- It also allows for leading zeroes before other digits which is undesireable
+- A better expression would be `(0|[1-9][0-9]*)\.([0-9]*[1-9]|0)`
+- The explanation is that the first group selects either `0` or any number that is not zero
+- We also end the same as well
+- To escape the `.` we need a `\`
 
 </details>
