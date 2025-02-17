@@ -147,17 +147,40 @@ c[ae]l[ae]nd[ae]r
 
 <details>
 <summary><h3>
-### 
 Q: Why does it take a while to run `grep -E hello`
 </h3></summary>
 
 ###
 
-- We want to match a string that ends with a new line `\n`
-- So our start is finding the `"`
-- We then want to match any set of characters following that, and we use `[^"]` as sometimes using `.*` matches too much in some cases
-- We then follow it up with the newline character and the final `"`
-- Note regex does not deal with escaped quotes
-- Also note we need to escape the new line character which we use `\`
+- When running grep, you can specify some sort of input to filter
+- Otherwise it waits for stdin to apply the filter
+- On a successful match it prints out the matched expression in terminal
+
+</details>
+
+<details>
+<summary><h3>
+Q: Why does it take a while to run `grep -E hello`
+</h3></summary>
+
+###
+
+- When running grep, you can specify some sort of input to filter
+- Otherwise it waits for stdin to apply the filter
+- On a successful match it prints out the matched expression in terminal
+
+</details>
+
+<details>
+<summary><h3>
+Q: Why won't this command work `grep -E int main program.c`
+</h3></summary>
+
+###
+
+- `grep -E` will try to scan the files `main` & `program.c` for `int`
+- If `main` does not exist it would display an error that the file does not exist
+- The shell treats each space as an argument and only the first one after the `-E` is what you want to filter
+- To fix we would do `grep -E 'int main' program.c`
 
 </details>
