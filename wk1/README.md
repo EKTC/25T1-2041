@@ -10,9 +10,9 @@ An operating system is a piece of software that manages the hardware of a comput
 
 ###
 
-- C preprocessor commands are the lines of code that have a # at the front such as #define
-- Therefore we would just search for lines that start with the #
-- Remember we can anchor our search so the matches must start with the #
+- C preprocessor commands are the lines of code that have a `#` at the front such as #define
+- Therefore we would just search for lines that start with the `#`
+- Remember we can anchor our search so the matches must start with the `#`
 
 ###
 
@@ -23,11 +23,11 @@ An operating system is a piece of software that manages the hardware of a comput
 </details>
 
 <details>
-<summary><h3>Q: All the lines in a C program except preprocessor commands.</h3></summary>
+<summary><h3>Q: Write Regext to match all the lines in a C program except preprocessor commands.</h3></summary>
 
 ###
 
-- This is the inverse of the previous one, so we want everything else but the # lines
+- This is the inverse of the previous one, so we want everything else but the lines that start with `#`
 - Thus we can match that the start is not a hash. But if we do that way, by condition it requires one character to match
 - Hence we add another condition ontop to match empty lines specifically as they have no characters at all
 
@@ -40,7 +40,7 @@ An operating system is a piece of software that manages the hardware of a comput
 </details>
 
 <details>
-<summary><h3>Q: All lines in a C program with trailing white space (one or more white space at the end of line).</h3></summary>
+<summary><h3>Q: Write Regex to match all lines in a C program with trailing white space (one or more white space at the end of line).</h3></summary>
 
 ###
 
@@ -56,7 +56,7 @@ An operating system is a piece of software that manages the hardware of a comput
 </details>
 
 <details>
-<summary><h3>Q: The names "Barry", "Harry", "Larry" and "Parry".</h3></summary>
+<summary><h3>Q: Write Regex to match the names "Barry", "Harry", "Larry" and "Parry".</h3></summary>
 
 ###
 
@@ -67,6 +67,80 @@ An operating system is a piece of software that manages the hardware of a comput
 
 ```
 [BHLP]arry
+```
+
+</details>
+
+<details>
+<summary><h3>Q: Write Regex to match a string containing the word "hello" followed, some time later, by the word "world".</h3></summary>
+
+###
+
+- We do not care about the start or end of the string as much so no need to anchor
+- What we want is a string of `hello` followed by `world` anytime after
+- We do not mind whatever character fills it in between of if there are any thus we can do `.*` which means 0 or more of any characters could be in between the string
+
+###
+
+```
+hello.*world
+```
+
+</details>
+
+<details>
+<summary><h3>Q: Write Regex to match the word "calendar" and mis-spellings where 'a' is replaced with 'e' or vice-versa.</h3></summary>
+
+###
+
+- We want to match variations of "calendar" where in any place theres an `a or e` it is the other
+- We can use the bracket expression to match either one in the places `a or e` occurs
+- So this matches the literal strings calandar, calander, calendar, calender, celandar, celander, celendar, celender
+
+###
+
+```
+c[ae]l[ae]nd[ae]r
+```
+
+</details>
+
+<details>
+<summary><h3>Q: Write Regex to match a list of positive integers separated by commas, e.g. 2,4,8,16,32</h3></summary>
+
+###
+
+- A bit more involved than the previous ones, something of note is that `0` cannot be at the start of the number except for itself
+- Starting off we can match the first number that will not have a comma in front of it
+- We can set a range with the bracket expression for the range of numbers we could see in each position
+- The first digit cannot be a `0` unless it is only `0` so our range is only `1-9`
+- Following that up we can have any number of trailing digits such as for two-digit, three-digit and more, so we use `[0-9]*` as there can be 0 or more repetitions for the number
+- We then combine it with an expression thats looking for a comma followed by grouped digits which can be `0` or more
+
+###
+
+```
+([1-9][0-9]*|0)(,([1-9][0-9]*|0))*
+```
+
+</details>
+
+<details>
+<summary><h3>Q: Write Regex to match a C string whose last character is newline.</h3></summary>
+
+###
+
+- We want to match a string that ends with a new line `\n`
+- So our start is finding the `"`
+- We then want to match any set of characters following that, and we use `[^"]` as sometimes using `.*` matches too much in some cases
+- We then follow it up with the newline character and the final `"`
+- Note regex does not deal with escaped quotes
+- Also note we need to escape the new line character which we use `\`
+
+###
+
+```
+"[^"]*\\n"
 ```
 
 </details>
