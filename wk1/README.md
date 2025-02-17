@@ -16,8 +16,8 @@ An operating system is a piece of software that manages the hardware of a comput
 
 ### Code Block
 
-```^#
-
+```
+^#
 ```
 
 </details>
