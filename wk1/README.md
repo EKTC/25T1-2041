@@ -144,3 +144,20 @@ c[ae]l[ae]nd[ae]r
 ```
 
 </details>
+
+<details>
+<summary><h3>
+### 
+Q: Why does it take a while to run `grep -E hello`
+</h3></summary>
+
+###
+
+- We want to match a string that ends with a new line `\n`
+- So our start is finding the `"`
+- We then want to match any set of characters following that, and we use `[^"]` as sometimes using `.*` matches too much in some cases
+- We then follow it up with the newline character and the final `"`
+- Note regex does not deal with escaped quotes
+- Also note we need to escape the new line character which we use `\`
+
+</details>
