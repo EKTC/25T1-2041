@@ -76,4 +76,20 @@
 
 ###
 
--
+- first reads each line of input
+- checks if it matches any patterns or line-ranges
+- apply editing commands to the matched lines and sends the lines to output
+- Two options are:
+  - `-n` do not print lines by default - applies all editing commands as normal but displays no output, unless `p` appended to edit command
+  - `-E` allows for extended regular expressions
+- Editing commands are:
+  - `p` prints the current line
+  - `d` delete the current line
+  - `s/regex/replace/` substitute first occurrence of string matching `regex` by `replace` string
+  - `s/regex/replace/g` substitute all occurrences of string matching `regex` by `replace` string
+  - `q` terminate execution of sed
+- Different commands to select line ranges:
+  - `line_number` selects the specified line
+  - `start_line_number, end_line_number` selects all lines between specified line numbers
+  - `/regex/` selects all lines that match the regex
+  - `/regex1/,/regex2/` selects all lines between matching regex1 & regex2
