@@ -1,5 +1,6 @@
 <h1 align="center">Week 2</h1>
 
+<h1>Filters</h1>
 <h2>wc</h2>
 
 ###
@@ -93,3 +94,204 @@
   - `start_line_number, end_line_number` selects all lines between specified line numbers
   - `/regex/` selects all lines that match the regex
   - `/regex1/,/regex2/` selects all lines between matching regex1 & regex2
+
+<h1>Tutorial Questions </h1>
+
+<h2>Q1</h2>
+
+###
+
+- We need to change the file layout to easily sort the entries based on last name
+- A first possible way is to make the first column of data be the lastname so we can easily sort on the first column
+- Another possible way is to make sure the first field is one string, instead of using a space to separate the initials we could use `.` so initials in the example such as `J A` become `J.A`
+
+<h2>Q2</h2>
+
+###
+
+<details>
+<summary>Provide a command that would produce each of the following results</summary>
+
+###
+
+<details>
+<summary>a) Display the first three lines of the file</summary>
+
+###
+
+- Remember that head gives us the `-n` first lines in a file
+- Hence we just need to replace it with our desired number
+
+```
+head -3 /etc/passwd
+```
+
+</details>
+
+<details>
+<summary>b) Display lines belonging to the class account (starts with 'cs','se','bi' or 'en' followed by four digits</summary>
+
+###
+
+- We want the line to start with either cs/se/bi/en so we can use a bracket expression
+- We then want it to have any four digits after which we can express with the curly brackets
+
+```
+grep -E '^(cs|se|bi|en)[0-9]{4}:' /etc/passwd
+```
+
+</details>
+
+<details>
+<summary>c) Display the username of everyone whose shell is '/bin/bash'</summary>
+
+###
+
+- First we want to find all the lines that end in `/bin/bash`
+- We then want to grab the first column of data from those lines as that is the username
+- Note that the data fields are separated by `:` character so we can use that as our delimiter and to distinguish the different fields
+
+```
+grep -E ':/bin/bash$' /etc/passwd | cut -d':' -f1
+```
+
+</details>
+
+<details>
+<summary>d) Create a tab-separated file called passwords.txt containing only usernames and passwords</summary>
+
+###
+
+- We want to grab the username and password, which in this case is the first two fields
+- We then want to make it so that they are separated by a `tab` instead of `:`
+- Hence we can use `tr` to change all the `:` to `tab` characters
+- We can then redirect the output into a text file
+
+```
+cut -d':' -f1,2 /etc/passwd | tr ':' '\t' > passwords.txt
+```
+
+</details>
+
+</details>
+
+<h2>Q3</h2>
+
+###
+
+<details>
+<summary>What does this command `tr -cs 'a-zA-Z0-9' '\n' < someFile` do?</summary>
+
+###
+
+- `-c` means complament meaning it replaces everything not in `string 1` with `string 2`. This means for this it replaces all characters that are not alphanumeric with a `newline` character
+- `-s` means squeeze, which replaces any duplicate characters with just one. This is applied for example if we see multiple `newline` characters in a row to just be one instance
+- `a-Za-Z0-9` means all letters and numbers can be denoted as `[:alpha:]`
+- `< someFile` means the command `tr` will be be processing it on the contents of `someFile`
+
+</details>
+
+<h2>Q4</h2>
+
+###
+
+<details>
+<summary>
+What is the output of each of the following pipelines if the text:
+
+```
+this is big Big BIG
+but this is not so big
+```
+
+</summary>
+
+###
+
+  <details>
+  <summary>a) tr -d ' ' | wc -w</summary>
+  
+  - The first part of the command will delete all the spaces between words, resulting it to being a single word
+  ```
+  thisisbigBigBIG
+  butthisisnotsobig
+  ```
+  - The second part of the command will print the number of words from the input, which will just be 2
+
+  </details>
+
+  <details>
+  <summary>b) tr -cs '[:alpha:]' '\n' | wc -l</summary>
+  - The first part means that if the character is not alphanumeric, replace it with a newline, so we get a list of words sepearted by a newline
+  - The second part counts how many lines there are, and since there are 11 words each with their own new line `wc -l` evaulates to 11
+  </details>
+
+  <details>
+  <summary>c) tr -cs '[:alpha:]' '\n' | tr '[:lower:]' '[:upper:]' | sort | uniq -c</summary>
+  - The first part is the same as part (b)
+  - We than translate all lower case characters to upper case characters
+  - We then sort them
+  - Finally we run `uniq -c` which counts all unique occurrences of a word
+  - Note we sort first to bunch them all up as `uniq` works on adjacent lines
+
+```
+Output
+4 BIG
+1 BUT
+2 IS
+1 NOT
+1 SO
+2 THIS
+```
+
+  </details>
+
+</details>
+
+<h2>Q5</h2>
+
+###
+
+<details>
+<summary>
+Consider you had two files with zIDs and marks for COMP1511 and COMP2041
+</summary>
+
+###
+
+  <details>
+  <summary>Can the files be used with a 'join' command, if not what needs to be changed?</summary>
+  
+  - We need the data to be sorted by a common key. For this case it would be zID
+  - We can see that the columns do not match with the zIDs so if we were to join it would error
+
+  </details>
+
+  <details>
+  <summary>Write a 'join' command that prints the marks in COMP1511 & COMP2041 of everyone who did both courses</summary>
+  
+  - Assuming the file is sorted, we can simply join the files
+  - `join` by default only includes lines in both files, there is an option to force unmatched lines to be in the result
+  - We do not have to specify any keys of what to join on, as it is the first field for both files
+  - We specify the delimiter so the filter can distinguish between the fields which in this case is `|`
+
+```
+join -t'|' comp1511-marks-sorted.psv comp2041-marks-sorted.psv
+```
+
+  </details>
+
+   <details>
+  <summary>Write a shell pipeline that prints marks for COMP1511 & COMP2041 sorted by COMP1511 mark ascending then by COMP2041 mark descending</summary>
+  
+  - We join on the common key being the zID
+  - We then sort on the delimiter `|` by the second column first as that is COMP1511 mark
+  - We then sort on the COMP2041 mark but in reverse to be descending
+  - Note we do `-k2,2` instead of `-k2` as it could mean that it sorts more than expected which can cause unintended behaviour
+
+```
+join -t'|' comp1511-marks-sorted.psv comp2041-marks-sorted.psv | sort -t'|' -k2,2 -k3,3r
+```
+
+  </details>
+</details>
