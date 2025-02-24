@@ -62,6 +62,7 @@
 - `-d` dictionary order - ignore non-letters & non-digits
 - `-t<c>` use character `<c>` to separate columns
 - `-k<n>` sort on column `<n>` which you can specify
+- Note if we do `-k1 -k3` vs `-k1,1 -k3` it is like saying sort on columns 1, 2, 3 vs sort on column 1 only
 
 <h2>uniq</h2>
 
