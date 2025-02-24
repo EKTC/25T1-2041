@@ -295,3 +295,102 @@ join -t'|' comp1511-marks-sorted.psv comp2041-marks-sorted.psv | sort -t'|' -k2,
 
   </details>
 </details>
+
+<h2>Q6</h2>
+
+###
+
+<details>
+
+<summary>
+Consider a file containing tab-separated benchmarking results for 20 programs, in three different benchmarks, all measured in seconds.
+
+```
+program1	08	03	05
+program2	14	03	05
+program3	17	08	10
+program4	15	11	05
+program5	16	10	24
+program6	15	09	17
+program7	15	06	10
+program8	17	10	17
+program9	12	07	08
+program10	09	04	16
+program11	11	03	24
+program12	16	11	20
+program13	16	08	17
+program14	08	07	06
+program15	06	06	05
+program16	12	05	08
+program17	09	05	10
+program18	06	06	06
+program19	14	09	22
+program20	16	04	24
+```
+
+</summary>
+
+###
+
+  <details>
+  <summary>Write a 'sort' command which sorts by the results in the second benchmark, then by the results in the first benchmark.</summary>
+  
+  - We sort based on the third column of data and the second column of data as requested by the q
+  - Remember to bound your sort by repeating the column to prevent unintended behaviour
+  
+  ```
+  sort benchmarks -k3,3 -k2,2
+  ```
+
+  </details>
+
+  <details>
+  <summary>Write a 'sort' command which sorts by the results in the third benchmark, then by the program number.</summary>
+  
+  - We want to sort on the fourth column first
+  - We then want to sort on the first column as it has the program number
+  - We can naively do something like the below
+
+```
+sort benchmarks -k4,4 -k1,1n
+```
+
+- Remember that the `n` option means to sort numerically
+- However for this case the first field is still a string, so an example is that `program15` will be infront of `program2` which is something we do not want
+- This is because `1` is before `2` with the strings
+- Hence another filter command we can use is to specify the character position in the column we are sorting by which is done with a `.`, as seen below
+
+```
+sort benchmarks -k4,4 -k1.8,1n
+```
+
+  </details>
+
+  <details>
+  <summary>Write a 'sed' command which removes the leading zeroes from the benchmark times.</summary>
+  
+  - We want to substitute all cases of 0 which can be done with the format `s/(regex)/(regex)/g` where the `s and g` denote it being a substitution
+  - An example of why we want this, is because the data may have a line such as `program3 01 02 08` which all have a leading 0
+  - We then want to choose what to replace, so to do we have to notice that each of the leading zeroes for the benchmark time have a `\t` character, thus we can simply replace those with just the `\t` character
+  - We want this patttern because if we naively just replace `0s` it could replace numbers such as `10` with a tab, messing the presentation of the data as well
+  
+  ```
+  sed -E 's/\t0/\t/g' benchmarks
+  ```
+  </details>
+
+  <details>
+  <summary>Write a 'sed' command which removes the benchmark results from program2 through program13</summary>
+  
+  - We want to match all the lines between and including `program2 and program13`
+  - We also want to match the with `program2` fully and not as a substring, so we can use a word boundary to tell the pattern that the word ends here denoted as `\b`. This is different from the `$` anchor as it does not have to necessarily mean the end of the line with word boundaries.
+  - We then can use the pattern of `/regex/,/regex/` to match all the lines in between the two specified regex patterns
+  - Finally to delete the lines rather than substitute we can add a `d` at the end of the second regex pattern
+
+```
+sed -E '/^program2\b/,/^program13\b/d' benchmarks
+```
+
+  </details>
+
+</details>
