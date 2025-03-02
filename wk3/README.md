@@ -354,6 +354,7 @@ arg[3] = "z"
 
 </details>
 
+<details> 
 <summary>b) ./args $(ls)</summary>
 
 - We run `ls` which gives `a b c`
@@ -369,6 +370,7 @@ arg[3] = "c"
 
 </details>
 
+<details> 
 <summary>c) ./args $y</summary>
 
 - `$y` expands to `Y Y`
@@ -383,6 +385,7 @@ arg[2] = "Y"
 
 </details>
 
+<details> 
 <summary>d) ./args "$y"</summary>
 
 - `$y` expands to `Y Y`
@@ -397,6 +400,7 @@ arg[1] = "Y Y"
 
 </details>
 
+<details> 
 <summary>e) ./args $(echo "$y")</summary>
 
 - The command expands to `Y Y`
@@ -411,6 +415,7 @@ arg[2] = "Y"
 
 </details>
 
+<details> 
 <summary>f) ./args $x$x$x</summary>
 
 - `$x` expands to `2` which is appended 3 times
@@ -424,6 +429,7 @@ arg[1] = "222"
 
 </details>
 
+<details> 
 <summary>g) ./args $x$y</summary>
 
 - `$x` expands to `2`
@@ -440,6 +446,7 @@ arg[2] = "Y"
 
 </details>
 
+<details> 
 <summary>h) ./args $xy</summary>
 
 - There is no variable called `xy`
