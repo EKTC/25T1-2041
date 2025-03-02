@@ -342,49 +342,114 @@ arg[1] = "Hello there"
 <details> 
 <summary>a) ./args x y   z</summary>
 
-- 
+- Due to no double quotes, it is treated as 3 separate arguments and does not take into account the whitespace
+
+```
+./args x y   z
+#args = 3
+arg[1] = "x"
+arg[2] = "y"
+arg[3] = "z"
+```
 
 </details>
 
 <summary>b) ./args $(ls)</summary>
 
--
+- We run `ls` which gives `a b c`
+- These are then sent to the `args` which splits it into separate arguments
+
+```
+./args $(ls)
+#args = 3
+arg[1] = "a"
+arg[2] = "b"
+arg[3] = "c"
+```
 
 </details>
 
 <summary>c) ./args $y</summary>
 
--
+- `$y` expands to `Y Y`
+- The shell then splits the line into words, so we have 2 arguments each being `Y`
+
+```
+./args $y
+#args = 2
+arg[1] = "Y"
+arg[2] = "Y"
+```
 
 </details>
 
 <summary>d) ./args "$y"</summary>
 
--
+- `$y` expands to `Y Y`
+- However as it is in double quotes, it expands the variable but also keeps the spaces / makes it one string
+- Thus we only have 1 argument `Y Y`
+
+```
+./args "$y"
+#args = 1
+arg[1] = "Y Y"
+```
 
 </details>
 
 <summary>e) ./args $(echo "$y")</summary>
 
--
+- The command expands to `Y Y`
+- But since backquotes `()` do not have a grouping function the args are separated into 2 `Y's`
+
+```
+./args $(echo $y)
+#args = 2
+arg[1] = "Y"
+arg[2] = "Y"
+```
 
 </details>
 
 <summary>f) ./args $x$x$x</summary>
 
--
+- `$x` expands to `2` which is appended 3 times
+- So we only have one arg of `222`
+
+```
+./args $x$x$x
+#args = 1
+arg[1] = "222"
+```
 
 </details>
 
 <summary>g) ./args $x$y</summary>
 
--
+- `$x` expands to `2`
+- `$y` expands to `Y Y`
+- These are concated as `2Y Y` which is then split by the shell
+- So we have two arguments being `2Y` and `Y`
+
+```
+./args $x$y
+#args = 2
+arg[1] = "2Y"
+arg[2] = "Y"
+```
 
 </details>
 
 <summary>h) ./args $xy</summary>
 
--
+- There is no variable called `xy`
+- So it will expand to an empty string which when given to args, means nothing
+- So we get 0 args
+
+```
+./args $xy
+#args = 0
+```
 
 </details>
 
