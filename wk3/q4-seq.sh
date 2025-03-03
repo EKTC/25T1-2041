@@ -53,5 +53,8 @@ done
 
 # Some things to note are that we have to be careful about spacing between the conditions, otherwise it may break
 # We need to use comparisons such as -eq and -le instead of = or == or < we see in other languages
-# Understand that there are specific shell variables that have certain properties such as $# which is number of args in this case
-# To run the script when we first make the file, we normally dont have permissions to run, so we need to chmod +x filename so we can set the permissions to run
+# Understand that there are specific shell variables that have certain properties such as $# 
+# which is number of args in this case
+#
+# To run the script when we first make the file, we normally dont have permissions to run, 
+# so we need to chmod +x filename so we can set the permissions to run
