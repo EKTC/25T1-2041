@@ -547,11 +547,6 @@ map.c includes:
 
 ###
 
-<details> 
-<summary>a)</summary>
-
-</details>
-
 <!-- End of Q  -->
 </details> 
 <!--  =======  -->
