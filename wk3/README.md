@@ -100,6 +100,7 @@
 - `> file` -> send stdout to `file`
 - `>> file` -> append stdout to `file`
 - `2> file` -> send stderr to `file`
+- `1>& 2` -> send stdout to stderr -> we do this so we can handle the error separately by sending it to stderr
 - `> file 2>&1` -> send stderr + stdout to `file`
 
 <h2>Pipelines</h2>
@@ -541,6 +542,51 @@ map.c includes:
     stdio.h
     stdlib.h
     map.h
+```
+
+</summary>
+
+###
+
+<!-- End of Q  -->
+</details> 
+<!--  =======  -->
+
+<h2>Q12</h2>
+<!-- Start of Q  -->
+<details> 
+<!-- ==========  -->
+<summary>Implement a shell script, grades.sh, that reads a sequence of (studentID, mark) pairs from its standard input, and writes (studentID, grade) pairs to its standard output. The input pairs are written on a single line, separated by spaces, and the output should use a similar format. The script should also check whether the second value on each line looks like a valid mark, and output an appropriate message if it does not The script can ignore any extra data occurring after the mark on each line.
+
+Consider the following input and corresponding output to the program:
+
+```
+Input
+2212345 65
+2198765 74
+2199999 48
+2234567 50 ok
+2265432 99
+2121212 hello
+2222111 120
+2524232 -1
+
+Output
+2212345 CR
+2198765 CR
+2199999 FL
+2234567 PS
+2265432 HD
+2121212 ?? (hello)
+2222111 ?? (120)
+2524232 ?? (-1)
+
+Starter Code is:
+#!/bin/sh
+while read id mark
+do
+    # ... insert mark/grade checking here ...
+done
 ```
 
 </summary>

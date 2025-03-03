@@ -30,7 +30,7 @@ then
     last="$2"
     increment="$3"
 else
-    echo "Usage: $0 [FIRST [INCREMENT]] LAST" >& 2
+    echo "Usage: $0 [FIRST [INCREMENT]] LAST" >&2
     exit 1
 fi
 
@@ -52,7 +52,7 @@ do
 done
 
 # Some things to note are that we have to be careful about spacing between the conditions, otherwise it may break
-# We need to use comparisons such as -eq and -le instead of = or == or < we see in other languages
+# We need to use comparisons such as -eq and -le instead of = or == or < for numbers
 # Understand that there are specific shell variables that have certain properties such as $# 
 # which is number of args in this case
 #
