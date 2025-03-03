@@ -110,6 +110,17 @@
 - Sends the result of `c1` to `c2` and so forth
 - Changes to variables in pipeline are lost, think of it as changing scope, each piped command has its own subshell
 
+<h2>Shell Built-In Variables</h2>
+
+###
+
+- When the shell takes in command lines they are put into some set variables
+- `$0` -> name of the cmd
+- `$1,$2, ... ,$#` -> the 1st cmd line arg, the 2nd cmd line arg and the `X` cmd line arg
+- `$#` -> count of cmd-line args
+- `$@` -> grabs all cmd line args, can add double quotes to maintain the spaces
+
+
 <h1>Tutorial Questions </h1>
 
 <h2>Q1</h2>
@@ -459,6 +470,50 @@ arg[2] = "Y"
 ```
 
 </details>
+
+<!-- End of Q  -->
+</details> 
+<!--  =======  -->
+
+<h2>Q4</h2>
+<!-- Start of Q  -->
+<details> 
+<!-- ==========  -->
+<summary>
+Implement a shell script called 'seq.sh' for writing sequences of integers onto its standard output, with one integer per line. The script can take up to three arguments, and behaves as follows:
+
+```
+# seq.sh LAST writes all numbers from 1 up to LAST, inclusive. For example:
+
+./seq.sh 5
+1
+2
+3
+4
+5
+
+# seq.sh FIRST LAST writes all numbers from FIRST up to LAST, inclusive. For example:
+
+./seq.sh 2 6
+2
+3
+4
+5
+6
+
+# seq.sh FIRST INCREMENT LAST writes all numbers from FIRST to LAST in steps of INCREMENT, inclusive; that is, it writes the sequence FIRST, FIRST + INCREMENT, FIRST + 2*INCREMENT, ..., up to the largest integer in this sequence less than or equal to LAST. For example:
+
+./seq.sh 3 5 24
+3
+8
+13
+18
+23
+```
+
+</summary>
+
+###
 
 <!-- End of Q  -->
 </details> 
