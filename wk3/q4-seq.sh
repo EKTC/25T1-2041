@@ -1,4 +1,4 @@
-#! /usr/bin/env dash
+#!/bin/dash
 
 # First we want to put all the arguments into variables so we can use
 # We need to notice that there are 3 cases based on the different args given

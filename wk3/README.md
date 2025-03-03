@@ -120,7 +120,6 @@
 - `$#` -> count of cmd-line args
 - `$@` -> grabs all cmd line args, can add double quotes to maintain the spaces
 
-
 <h1>Tutorial Questions </h1>
 
 <h2>Q1</h2>
@@ -514,6 +513,44 @@ Implement a shell script called 'seq.sh' for writing sequences of integers onto 
 </summary>
 
 ###
+
+<!-- End of Q  -->
+</details> 
+<!--  =======  -->
+
+<h2>Q8</h2>
+<!-- Start of Q  -->
+<details> 
+<!-- ==========  -->
+<summary>Write a shell script, list_include_files.sh, which for all the C source files (.c files) in the current directory prints the names of the files they include (.h files), for example
+
+```
+$ list_include_files.sh
+count_words.c includes:
+    stdio.h
+    stdlib.h
+    ctype.h
+    time.h
+    get_word.h
+    map.h
+get_word.c includes:
+    stdio.h
+    stdlib.h
+map.c includes:
+    get_word.h
+    stdio.h
+    stdlib.h
+    map.h
+```
+
+</summary>
+
+###
+
+<details> 
+<summary>a)</summary>
+
+</details>
 
 <!-- End of Q  -->
 </details> 
