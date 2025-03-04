@@ -10,9 +10,6 @@ do
 
     # To check if smth is a number we can use -eq
     # -eq only works on numbers and will error out if its a string
-    # We need to have a negation so ! as well because if its numbers it will evaluate to true
-    # But if its a string then it will evaluate to false
-    # So we want it to be true when its false, hence why we use ! in front of the condition
     #
     # We also want to check its a valid number
     # Which in this case is a number ranging from 0 to 100
@@ -23,7 +20,7 @@ do
     #
     # The main logic is we compare the mark with breakpoints to print the corresponding
     # Grade, if its invalid we have a case for it being ??
-    if ! [ "$mark" -eq "$mark" ] 2> /dev/null && [ "$mark" -ge 0 ] && [ "$mark" -le 100 ]
+    if [ "$mark" -eq "$mark" ] 2> /dev/null && [ "$mark" -ge 0 ] && [ "$mark" -le 100 ]
     then
         if [ "$mark" -lt 50 ] 
         then
