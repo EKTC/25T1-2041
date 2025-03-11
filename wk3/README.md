@@ -323,7 +323,7 @@ a b c
 <!-- ==========  -->
 <summary>Given a program to give information about the command-line arguments. What will the following commands
 
-```
+```py3
 #!/usr/bin/env python3
 from sys import argv
 
