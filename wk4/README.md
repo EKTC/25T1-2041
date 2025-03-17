@@ -229,26 +229,39 @@ like this:
 <h2>Q9</h2>
 <details> 
 <!-- ==========  -->
-<summary>Example</summary>
+<summary>
+Write a shell script named is_prime.sh which given an integer as an argument, tests whether it is prime and prints a suitable message:
+
+```
+$ is_prime.sh 42
+42 is not prime
+$ is_prime.sh 113
+113 is prime
+```
+
+Your script should exit with a non-zero exit status if its argument is not prime.
+
+Write a second script named primes.sh which uses the first script to print all primes less than a specified value, e.g:
+
+```
+$ primes.sh 100
+2
+3
+5
+7
+11
+13
+17
+...
+79
+83
+89
+97
+```
+
+</summary>
 
 ###
-
-<!-- End of Q  -->
-</details> 
-<!--  =======  -->
-
-<!-- Start of Q  -->
-<h2>Q11</h2>
-<details> 
-<!-- ==========  -->
-<summary>Example</summary>
-
-###
-
-<details> 
-<summary>a)</summary>
-
-</details>
 
 <!-- End of Q  -->
 </details> 
