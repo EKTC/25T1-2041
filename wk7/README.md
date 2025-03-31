@@ -370,3 +370,81 @@ $ ./head.py -3 file1 file2
 <!-- End of Q  -->
 </details> 
 <!--  =======  -->
+
+<!-- Start of Q  -->
+<h2>Q10</h2>
+<details> 
+<!-- ==========  -->
+<summary>How can we use regular expressions in python?</summary>
+
+###
+
+- Python has a built-in regular expr library being the `re` module
+- To use the `re` module we need to import it
+
+```python
+# Import the whole library
+import re
+
+text = "The sky is blue"
+x = re.search(r"blue", text)
+
+# Or import individual functions
+from re import search, match, fullmatch
+
+text = "The sky is not blue"
+x = search(r"blue", text)
+```
+
+- The three functions we import are used the same way
+
+```
+search(pattern, string [, flags])
+```
+
+- Where `pattern` is the regular expression to search for
+- `string` is the string to search in
+- `flags` are optional modifiers
+
+<!-- End of Q  -->
+</details> 
+<!--  =======  -->
+
+<!-- Start of Q  -->
+<h2>Q11</h2>
+<details> 
+<!-- ==========  -->
+<summary>What is the difference between search, match, and fullmatch?</summary>
+
+###
+
+- `search` is the most like `grep` which will match anywhere in the string
+- `match` will only match at the beginning of the string which is the same as using `search` with the `^` anchor
+- `fullmatch` will match both the beginning and end of the string which is the same as using `search` with both `^` and `$` anchors
+
+<!-- End of Q  -->
+</details> 
+<!--  =======  -->
+
+<!-- Start of Q  -->
+<h2>Q12</h2>
+<details> 
+<!-- ==========  -->
+<summary>How are Python's regular expressions different from grep?</summary>
+
+###
+
+- When `grep` finds a match, it prints the line where the match was found, but python returns a `match` object
+- match objects have some attributes:
+  - `Match.span()` - starting & ending index of the match
+  - `Match.re.pattern` - regex pattern used
+  - `Match.string` - the original string
+  - `Match.group(0)` - the match
+  - `Match.group(N)` - capture groups
+- `grep` finds all non-overlapping matches, whilst python finds the first match
+- `grep` works line by line while python works on the entire string
+- `grep` has options such as `-i` but python has flags that do the same thing
+
+<!-- End of Q  -->
+</details> 
+<!--  =======  -->
