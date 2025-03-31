@@ -164,9 +164,9 @@ assert data is not None
 
 <h2>Useful Operations on Sequences</h2>
 
-![alt text](seq1.png)
+![alt text](images/seq1.png)
 
-![alt text](seq2.png)
+![alt text](images/seq2.png)
 
 <h2>Files</h2>
 
@@ -210,7 +210,7 @@ except:
 - Python dictionaries can have almost any value as the index
 - However the index cannot be mutable -> list / dict
 
-![alt text](dict.png)
+![alt text](images/dict.png)
 
 <h1>Tutorial Questions</h1>
 
