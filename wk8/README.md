@@ -106,6 +106,17 @@ def add(x, y=1):
 3
 ```
 
+<h2>Variable Scope</h2>
+
+- A variable assigned a value in a function is default local to the function
+- This means we cannot access it outside of the function
+- We can however make it accessible if we add the keyword `global`
+
+<!-- <h2>List Comprehensions</h2>
+- List comprehensions can be used to create lists (iterables) concisely.
+- In simple cases, they are more readable than for loops or higher-order functions.
+- They can be written as: expression for value in iterable -->
+
 <h1>Tutorial Questions</h1>
 <!-- Start of Q  -->
 <h2>Q2</h2>
@@ -114,6 +125,16 @@ def add(x, y=1):
 <summary>What other useful types are available with Python's standard library?</summary>
 
 ###
+
+- collections.Counter
+  - works like a dictionary, but with some extra methods, plus has a default value of 0.
+- collections.defaultdict
+  - works like a dictionary, but you can set a default value for missing keys.
+- collections.OrderedDict
+  - works like a dictionary, but keeps the order of the keys.
+  - ie. OrderedDict.keys() is the same order as the keys were added.
+  - This is currently true for normal dictionaries, but not guaranteed.
+  - Always use OrderedDict if you need to preserve the order of the keys.
 
 <!-- End of Q  -->
 </details> 
@@ -179,6 +200,30 @@ $ ./times.py 10 10 3
 
 ###
 
+```python
+#!/usr/bin/env python3
+import sys
+
+def main():
+    if len(sys.argv) != 4:
+        print(f"Usage: {sys.argv[0]} <n> <m> <column-width>")
+        sys.exit(1)
+
+    n = int(sys.argv[1])
+    m = int(sys.argv[2])
+    width = int(sys.argv[3])
+
+    for x in range(1, n + 1):
+        print(f"{x: >{width}}", end="")
+        for y in range(2, m + 1):
+            print(f" {x * y: >{width}}", end="")
+        print()
+
+
+if __name__ == "__main__":
+    main()
+```
+
 <!-- End of Q  -->
 </details> 
 <!--  =======  -->
@@ -193,6 +238,41 @@ You can assume words occur one per line in each file.</summary>
 
 ###
 
+```python
+#!/usr/bin/env python3
+
+"""
+print words in file 1 but not file 2
+"""
+
+import sys
+
+def main():
+    if len(sys.argv) != 3:
+        print(f"Usage: {sys.argv[0]} <file1> <file2>")
+        sys.exit(1)
+
+    words1 = set()
+
+    with open(sys.argv[1]) as f1:
+        for word in f1:
+            word = word.strip()
+            words1.add(word)
+
+    words2 = set()
+
+    with open(sys.argv[2]) as f2:
+        for word in f2:
+            word = word.strip()
+            words2.add(word)
+
+    for word in words1 - words2:
+        print(word)
+
+if __name__ == "__main__":
+    main()
+```
+
 <!-- End of Q  -->
 </details> 
 <!--  =======  -->
@@ -201,9 +281,47 @@ You can assume words occur one per line in each file.</summary>
 <h2>Q6</h2>
 <details> 
 <!-- ==========  -->
-<summary>Example</summary>
+<summary>Write a Python program source_count.py which prints the number of lines of C source code in the current directory. In other words, this Python program should behave similarly to wc -l *.[ch]. (Note: you are not allowed to use wc or other Unix programs from within the Perl script). For example:
+
+```sh
+$ ./source_count.py
+    383 cyclorana.c
+    280 cyclorana.h
+     15 enum.c
+    194 frequency.c
+    624 model.c
+    293 parse.c
+    115 random.c
+     51 smooth.c
+    132 util.c
+     16 util.h
+    410 waveform.c
+   2513 total
+```
+
+</summary>
 
 ###
+
+```python
+#!/usr/bin/env python3
+# written by andrewt@cse.unsw.edu.au for COMP2041
+# count lines of C source code
+from glob import glob
+
+def main():
+    total = 0
+    for filename in glob("*.[ch]"):
+        with open(filename) as f:
+            lines = f.readlines()
+            n_lines = len(lines)
+            print(f"{n_lines:7} {filename}")
+            total += n_lines
+    print(f"{total:7} total")
+
+if __name__ == "__main__":
+    main()
+```
 
 <!-- End of Q  -->
 </details> 
@@ -213,9 +331,43 @@ You can assume words occur one per line in each file.</summary>
 <h2>Q7</h2>
 <details> 
 <!-- ==========  -->
-<summary>Example</summary>
+<summary>Write a Python program, phone_numbers.py which given the URL of a web page fetches it by running wget and prints any strings that might be phone numbers in the web page.
+
+Assume the digits of phone numbers may be separated by zero or more spaces or hyphens ('-') and can contain between 8 and 15 digits inclusive.
+
+You should print the phone numbers one per line with spaces & hyphens removed.
+
+```sh
+$ ./phone_numbers.py https://www.unsw.edu.au
+20151028
+11187777
+841430912571345
+413200225
+61293851000
+57195873179
+```
+
+</summary>
 
 ###
+
+```python3
+#!/usr/bin/env python3
+
+import sys, re, subprocess
+
+def main():
+    for url in sys.argv[1:]:
+        process = subprocess.run(f"wget -q -O- {url}", shell=True, capture_output=True, text=True)
+        webpage = process.stdout
+        for number in re.findall(r'[\d \-]+', webpage):
+            number = re.sub(r'\D', '', number)
+            if len(number) >= 8 and len(number) <= 15:
+                print(number)
+
+if __name__ == "__main__":
+    main()
+```
 
 <!-- End of Q  -->
 </details> 
