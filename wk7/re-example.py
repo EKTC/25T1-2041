@@ -15,5 +15,6 @@ m = re.search(r".+@.+\..+", email)
 print(m.string)
 
 fake_email = "cs2041@csecom"
-m = re.search(r".+@.+\..+", fake_email)
+m = re.search(r"^.+@.+\..+", fake_email, re.IGNORECASE)
 print(m)
+

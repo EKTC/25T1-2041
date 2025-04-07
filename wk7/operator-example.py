@@ -1,7 +1,7 @@
 #! /usr/bin/env python3 
 
 a = 1
-b = 1
+b = 2
 
 w1 = "1"
 w2 = str(1)
