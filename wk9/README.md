@@ -132,7 +132,6 @@ $ seq 1 5 | 2041 pied '/2/d;4q'
 
 - Whitespace can appear before and/or after commands and addresses
 - `#` can be used as a comment character
-<h2>Subset 2</h2>
 
 <h1>Tutorial Questions</h1>
 
